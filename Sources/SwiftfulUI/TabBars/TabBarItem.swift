@@ -5,6 +5,7 @@
 //  Created by Nick Sarno on 4/8/22.
 //
 
+#if os(iOS)
 import Foundation
 import UIKit
 
@@ -25,3 +26,4 @@ public struct TabBarItem: Hashable {
         badgeCount = count
     }
 }
+#endif

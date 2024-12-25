@@ -41,9 +41,15 @@ public struct CountdownViewBuilder<Content:View>: View {
             .onAppear {
                 timeRemaining = endTime.timeIntervalSince(Date())
             }
-            .onNotificationRecieved(name: UIApplication.didBecomeActiveNotification, action: { _ in
-                timeRemaining = endTime.timeIntervalSince(Date())
-            })
+       #if os(iOS)
+    .onNotificationRecieved(name: UIApplication.didBecomeActiveNotification, action: { _ in
+        timeRemaining = endTime.timeIntervalSince(Date())
+    })
+#elseif os(macOS)
+    .onNotificationRecieved(name: NSApplication.didBecomeActiveNotification, action: { _ in
+        timeRemaining = endTime.timeIntervalSince(Date())
+    })
+#endif
     }
 }
 

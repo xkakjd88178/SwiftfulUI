@@ -5,6 +5,7 @@
 //  Created by Nick Sarno on 11/14/21.
 //
 
+#if os(iOS)
 import SwiftUI
 
 
@@ -174,3 +175,4 @@ private extension TabBarDefaultView {
     }
     
 }
+#endif

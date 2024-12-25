@@ -20,10 +20,14 @@ struct HapticViewModifier<Value : Equatable>: ViewModifier {
         } else {
             content
                 .onAppear(perform: {
+                    #if os(iOS)
                     Haptics.shared.prepare(option: option)
+                    #endif
                 })
                 .onChange(of: value, perform: { _ in
+                    #if os(iOS)
                     Haptics.shared.vibrate(option: option)
+                    #endif
                 })
         }
     }

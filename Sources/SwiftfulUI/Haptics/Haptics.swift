@@ -5,6 +5,9 @@
 //  Created by Nick Sarno on 4/8/22.
 //
 
+
+
+#if os(iOS)
 import Foundation
 import UIKit
 
@@ -60,3 +63,4 @@ public final class Haptics {
     }
     
 }
+#endif

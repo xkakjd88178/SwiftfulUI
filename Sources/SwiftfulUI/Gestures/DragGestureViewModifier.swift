@@ -97,14 +97,22 @@ struct DragGestureViewModifier: ViewModifier {
     }
     
     private func getRotation(translation: CGSize) -> CGFloat {
+        #if os(iOS)
         let max = UIScreen.main.bounds.width / 2
+        #elseif os(macOS)
+        let max = NSScreen.main?.frame.width ?? 0 / 2
+        #endif
         let percentage = translation.width * rotationMultiplier / max
         let maxRotation: CGFloat = 10
         return percentage * maxRotation
     }
     
     private func getScale(translation: CGSize) -> CGFloat {
+        #if os(iOS)
         let max = UIScreen.main.bounds.width / 2
+        #elseif os(macOS)
+        let max = NSScreen.main?.frame.width ?? 0 / 2
+        #endif
         
         var offsetAmount: CGFloat = 0
         switch axes {

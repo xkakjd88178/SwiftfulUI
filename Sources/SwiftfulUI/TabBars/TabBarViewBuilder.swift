@@ -54,6 +54,7 @@ public struct TabBarViewBuilder<Content:View, TabBar: View>: View {
     }
 }
 
+#if os(iOS)
 struct TabBarViewBuilder_Previews: PreviewProvider {
     
     struct PreviewView: View {
@@ -89,3 +90,4 @@ struct TabBarViewBuilder_Previews: PreviewProvider {
         PreviewView()
     }
 }
+#endif

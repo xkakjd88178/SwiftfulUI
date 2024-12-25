@@ -76,36 +76,69 @@ public struct RootView: View {
         .onFirstAppear {
             delegate?.onApplicationDidAppear?()
         }
-        .onNotificationRecieved(
-            name: UIApplication.willEnterForegroundNotification,
-            action: { notification in
-                delegate?.onApplicationWillEnterForeground?(notification)
-            }
-        )
-        .onNotificationRecieved(
-            name: UIApplication.didBecomeActiveNotification,
-            action: { notification in
-                delegate?.onApplicationDidBecomeActive?(notification)
-            }
-        )
-        .onNotificationRecieved(
-            name: UIApplication.willResignActiveNotification,
-            action: { notification in
-                delegate?.onApplicationWillResignActive?(notification)
-            }
-        )
-        .onNotificationRecieved(
-            name: UIApplication.didEnterBackgroundNotification,
-            action: { notification in
-                delegate?.onApplicationDidEnterBackground?(notification)
-            }
-        )
-        .onNotificationRecieved(
-            name: UIApplication.willTerminateNotification,
-            action: { notification in
-                delegate?.onApplicationWillTerminate?(notification)
-            }
-        )
+#if os(iOS)
+    .onNotificationRecieved(
+        name: UIApplication.willEnterForegroundNotification,
+        action: { notification in
+            delegate?.onApplicationWillEnterForeground?(notification)
+        }
+    )
+    .onNotificationRecieved(
+        name: UIApplication.didBecomeActiveNotification,
+        action: { notification in
+            delegate?.onApplicationDidBecomeActive?(notification)
+        }
+    )
+    .onNotificationRecieved(
+        name: UIApplication.willResignActiveNotification,
+        action: { notification in
+            delegate?.onApplicationWillResignActive?(notification)
+        }
+    )
+    .onNotificationRecieved(
+        name: UIApplication.didEnterBackgroundNotification,
+        action: { notification in
+            delegate?.onApplicationDidEnterBackground?(notification)
+        }
+    )
+    .onNotificationRecieved(
+        name: UIApplication.willTerminateNotification,
+        action: { notification in
+            delegate?.onApplicationWillTerminate?(notification)
+        }
+    )
+#elseif os(macOS)
+    .onNotificationRecieved(
+        name: NSApplication.willBecomeActiveNotification,
+        action: { notification in
+            delegate?.onApplicationWillEnterForeground?(notification) // macOS equivalent
+        }
+    )
+    .onNotificationRecieved(
+        name: NSApplication.didBecomeActiveNotification,
+        action: { notification in
+            delegate?.onApplicationDidBecomeActive?(notification)
+        }
+    )
+    .onNotificationRecieved(
+        name: NSApplication.willResignActiveNotification,
+        action: { notification in
+            delegate?.onApplicationWillResignActive?(notification)
+        }
+    )
+    .onNotificationRecieved(
+        name: NSApplication.didResignActiveNotification,
+        action: { notification in
+            delegate?.onApplicationDidEnterBackground?(notification) // macOS equivalent
+        }
+    )
+    .onNotificationRecieved(
+        name: NSApplication.willTerminateNotification,
+        action: { notification in
+            delegate?.onApplicationWillTerminate?(notification)
+        }
+    )
+#endif
     }
     
 }
